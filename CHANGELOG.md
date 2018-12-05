@@ -1,5 +1,5 @@
 # Changes by Version
 
-## 0.0.1 (2018-12-01)
+## 1.0.0 (2018-12-05)
 
 * First Version

@@ -1,6 +1,6 @@
 {
   "name": "jaeger-tracer-decorator",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Decorators for create Jaeger Spans for tracing in node apps",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",

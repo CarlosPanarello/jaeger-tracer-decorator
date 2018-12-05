@@ -5,7 +5,6 @@
 /tmp
 /out-tsc
 /data
-/k8s/data
 /CachedData
 /User
 /logs
@@ -16,10 +15,6 @@
 /Local Storage
 /log
 /libs
-
-# Database Local
-/bd_Data
-/metabase-data
 
 # dependencies
 /node_modules
@@ -47,14 +42,11 @@ package-lock.json
 # misc
 /.sass-cache
 /connect.lock
-/coverage
 /libpeerconnection.log
 npm-debug.log
 yarn-error.log
 testem.log
-/typings
 .npmrc
-.old.npmrc
 /Workspaces
 workspace.json
 
@@ -63,5 +55,4 @@ workspace.json
 Thumbs.db
 
 # Test files - executions
-D2018*
 jmeter.log
