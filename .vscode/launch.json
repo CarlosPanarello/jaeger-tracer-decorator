@@ -1,0 +1,108 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Program",
+      "program": "${workspaceFolder}/dist/index.js",
+      "outFiles": [
+        "${workspaceFolder}/**/*.js"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Program2",
+      "program": "${workspaceFolder}/dist/decorator/decorator_factory_demo.js",
+      "outFiles": [
+        "${workspaceFolder}/**/*.js"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Attach to Docker",
+      "preLaunchTask": "tsc-watch",
+      "port": 9222,
+      "restart": true,
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "/server",
+      "outFiles": [
+        "${workspaceFolder}/dist/**/*.js"
+      ],
+      "skipFiles": [
+        "<node_internals>/**/*.js",
+      ]
+    },
+    {
+        "name": "Launch via npm master local",
+        "type": "node",
+        "request": "launch",
+        "cwd": "${workspaceFolder}",
+        "runtimeExecutable": "npm",
+        "runtimeArgs": [
+            "run", "debugmaster"
+        ],
+        "port": 9222
+    },
+    {
+      "name": "Launch via npm slave local",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+          "run", "debugslave"
+      ],
+      "port": 9223
+    },       
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch in Docker",
+      "preLaunchTask": "tsc-watch",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [ "run", "docker-debug" ],
+      "port": 9222,
+      "restart": true,
+      "timeout": 60000,
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "/server",
+      "outFiles": [
+        "${workspaceFolder}/dist/**/*.js"
+      ],
+      "skipFiles": [
+        "<node_internals>/**/*.js",
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Javascript Example",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run-script",
+        "debug-js"
+      ],
+      "port": 9229
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Typescript Example",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run-script",
+        "debug-ts"
+      ],
+      "port": 9229
+    },    
+  ]
+}
