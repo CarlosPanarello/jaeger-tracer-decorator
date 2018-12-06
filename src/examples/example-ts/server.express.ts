@@ -1,6 +1,6 @@
 import * as express from "express";
 import { expressMiddlewareTracer, TransformPathInSpanName } from "../../index";
-import { EndpointForTracing, JaegerTracer, RequestTags  } from "../../index";
+import { JaegerTracer, RequestTags  } from "../../index";
 import { Controller } from "./controller";
 
 const jaegerTracer = new JaegerTracer();

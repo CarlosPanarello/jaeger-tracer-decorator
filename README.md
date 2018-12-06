@@ -113,14 +113,55 @@ server.listen(process.env.NODE_PORT ? process.env.NODE_PORT : 3000);
 ```ts
 import * as bodyParser from "body-parser";
 import * as express from "express";
+import uuidv4 = require("uuid/v4");
+import { expressMiddlewareTracer, TransformPathInSpanName } from "../../index";
+import { JaegerTracer, RequestTags  } from "../../index";
+import { Controller } from "./controller";
 
 const server = express();
+
+const jaegerTracer = new JaegerTracer();
+const requestTags: RequestTags[] = ["query", "headers"];
+const transformPathInSpanName: TransformPathInSpanName = (path: string) => {
+  switch (true) {
+    case path.startsWith("/fullname/son"):
+      return "Get_Sons_FullName_API";
+    case path.startsWith("/fullname/father"):
+      return "Get_Fathers_FullName_API";
+    default:
+      return path;
+  }
+};
+
+const server = express();
+
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 
-const expressTracer = new ExpressJaegerTracer(metrics.prometheus, logger, functionForFilterEndPoints, functionChangeSpanEndPointName);
+server.use((req: any, res: express.Response, next: express.NextFunction) => {
+  req.id = uuidv4();
+  next();
+});
 
-expressTracer.addTracerMiddleware(server, ["query" , "body" , "headers" , "id" , "params" , "username"]);
+server.get("/ping",
+  async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  res.send("pong");
+  next();
+});
+
+server.get("/fullname/son",
+expressMiddlewareTracer({jaegerTracer, requestTags, transformPathInSpanName }),
+  async (req: express.Request, res: express.Response, next: express.NextFunction)  => {
+  res.send(new Controller().getSon(req));
+});
+
+server.get("/fullname/father",
+expressMiddlewareTracer({jaegerTracer, requestTags, transformPathInSpanName }),
+async (req: express.Request, res: express.Response, next: express.NextFunction)  => {
+  res.send(new Controller().getName(req));
+});
+
+server.listen(process.env.NODE_PORT ? process.env.NODE_PORT : 3000);
 
 ```
 
