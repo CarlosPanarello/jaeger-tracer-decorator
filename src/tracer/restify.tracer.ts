@@ -3,7 +3,7 @@ import "reflect-metadata";
 import * as restify from "restify";
 import { isFunction, isObject } from "util";
 import { defaultEndpointForTracing, defaultTransformPathInSpanName } from "../interfaces/interfaces";
-import { IOptionsMiddleware, RequestTags } from "../interfaces/interfaces";
+import { IOptionsMiddlewareRestify, RequestTags } from "../interfaces/interfaces";
 
 /**
  * Middleware for restify server, if request have a span in request header it will create a child span from it.
@@ -15,7 +15,7 @@ import { IOptionsMiddleware, RequestTags } from "../interfaces/interfaces";
  * @param options.endpointForTracing function to filter which path do you want to trace, default is a function that return true.
  * @param options.transformPathInSpanName: function to transform path in span name, default is path to be span name.
  */
-export const restifyMiddlewareTracer = (options: IOptionsMiddleware): restify.RequestHandler => {
+export const restifyMiddlewareTracer = (options: IOptionsMiddlewareRestify): restify.RequestHandler => {
   const requestTags = options.requestTags ? options.requestTags : new Array<RequestTags>();
   const endpointForTracing = options.endpointForTracing ? options.endpointForTracing : defaultEndpointForTracing;
   const transformPathInSpanName = options.transformPathInSpanName ? options.transformPathInSpanName : defaultTransformPathInSpanName;

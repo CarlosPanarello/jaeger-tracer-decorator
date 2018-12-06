@@ -1,7 +1,7 @@
 "use strict";
 var decorators = require("../../../dist/index.js");
 
-export class Child {
+class Child {
 
   constructor(fathersLastName, myName) {
     console.log("Constructor of Child");
@@ -16,3 +16,5 @@ export class Child {
 
 Child = decorators.decorateClass(Child);
 decorators.decorateMethod(Child, "sayMyFullName");
+
+module.exports = Child;

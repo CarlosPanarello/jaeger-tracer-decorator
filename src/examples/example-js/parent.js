@@ -1,44 +1,39 @@
 "use strict";
 var decorators = require("../../../dist/index.js");
+var Child = require("./child.js")
 
 class Parent {
 
-  constructor(){
-    console.log("My Parent Constructor");
+  constructor(first, last) {
+    this.child = new Child(last, "Bart");
+    this.fullName = first + " " + last;
   }
 
-  parentName(first, last) {
-    this.firstName(first);
-    this.lastName(last);
+  sayYourSonFullName() {
+    this.myOtherTag = this.child.sayMyFullName();
+    return this.myOtherTag;
   }
 
-  firstName(name) {
-    this.first = name;
+  sayYourFullName() {
+    this.myTag = this.fullName;
+    return this.fullName;
   }
 
-  lastName(name) {
-    this.last = name;
-  }
-
-  fullName() {
-    console.log("My Header --> ", this.header);
-    return this.first + " " + this.last;
-  }
-
-  sayName() {
-    const myFullName = this.fullName();
-    this.tag = myFullName;
-    console.log(myFullName);
+  my_header_generator_method(){
+    const agent = new https.Agent({ rejectUnauthorized: false });
+    let headers = {"x-api-key": "mySecret"};
+    headers = {...this.mygetHeaderSpan, ...headers};
+    const opts = { timeout: 3000, headers, httpsAgent: agent};
+    return opts;
   }
 }
 
 Parent = decorators.decorateClass(Parent);
-decorators.decorateMethod(Parent, "parentName");
-decorators.decorateMethod(Parent, "firstName");
-decorators.decorateMethod(Parent, "lastName");
-decorators.decorateMethod(Parent, "fullName");
-decorators.decorateMethod(Parent, "sayName");
-decorators.decoratePropertyTag(Parent, "tag", "full_name");
-decorators.decoratePropertyHeader(Parent, "header");
+decorators.decorateMethod(Parent, "sayYourSonFullName");
+decorators.decorateMethod(Parent, "sayYourFullName");
+decorators.decorateMethod(Parent, "my_header_generator_method");
+decorators.decoratePropertyTag(Parent, "myOtherTag", "full_name_son");
+decorators.decoratePropertyTag(Parent, "myTag");
+decorators.decoratePropertyHeader(Parent, "mygetHeaderSpan");
 
 module.exports = Parent;

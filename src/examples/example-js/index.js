@@ -4,9 +4,10 @@ var Parent = require("./parent.js")
 var JaegerTracer = require("../../../dist/index.js").JaegerTracer;
 
 const jaeger = new JaegerTracer();
-const father = new Parent();
+const Homer = new Parent("Homer", "Simpson");
 
-father.parentName('Homer', 'Simpson');
-father.sayName();
+console.log(Homer.sayYourFullName());
+console.log(Homer.sayYourSonFullName());
+
 
 setTimeout(() => process.exit(0), 1000);

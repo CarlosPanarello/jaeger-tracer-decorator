@@ -36,11 +36,11 @@ export class Parent {
   }
 
   @traceable()
-  public async my_header_generator_method(hello: string): Promise<any> {
+  public async my_header_generator_method(): Promise<any> {
     const agent = new https.Agent({ rejectUnauthorized: false });
     let headers = {"x-api-key": "mySecret"};
     headers = {...this.mygetHeaderSpan, ...headers};
     const opts = { timeout: 3000, headers, httpsAgent: agent};
-    return headers;
+    return opts;
   }
 }
