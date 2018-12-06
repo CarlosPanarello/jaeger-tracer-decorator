@@ -103,6 +103,39 @@
         "debug-ts"
       ],
       "port": 9229
-    },    
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Restify Typescript Example",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run-script",
+        "debug-restify"
+      ],
+      "port": 9229
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Express Javascript Example",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run-script",
+        "debug-express"
+      ],
+      "port": 9229
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Express Typescript Example",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run-script",
+        "debug-express-ts"
+      ],
+      "port": 9229
+    },      
   ]
 }

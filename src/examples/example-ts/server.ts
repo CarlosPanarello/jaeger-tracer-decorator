@@ -43,11 +43,11 @@ server.get("/ping", async (req: restify.Request, res: restify.Response, next: re
 });
 
 server.get("/fullname/son", async (req: any, resp: any, next: restify.Next) => {
-  resp.send(new Controller().getSon());
+  resp.send(new Controller().getSon(req));
 });
 
 server.get("/fullname/father", async (req: any, resp: any, next: restify.Next) => {
-  resp.send(new Controller().getName());
+  resp.send(new Controller().getName(req));
 });
 
 server.listen(process.env.NODE_PORT ? process.env.NODE_PORT : 3000);

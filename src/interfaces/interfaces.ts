@@ -28,7 +28,14 @@ export type RequestTags = "query" |"body" | "headers" | "id" | "params" | "usern
 export const defaultEndpointForTracing = (path: string): boolean => true;
 export const defaultTransformPathInSpanName = (path: string): string => path;
 
-export interface IOptionsMiddleware {
+export interface IOptionsMiddlewareRestify {
+  jaegerTracer: JaegerTracer;
+  requestTags?: RequestTags[];
+  endpointForTracing?: EndpointForTracing;
+  transformPathInSpanName?: TransformPathInSpanName;
+}
+
+export interface IOptionsMiddlewareExpress {
   jaegerTracer: JaegerTracer;
   requestTags?: RequestTags[];
   endpointForTracing?: EndpointForTracing;
