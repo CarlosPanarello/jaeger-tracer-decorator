@@ -1,7 +1,7 @@
 import * as express from "express";
 import { FORMAT_HTTP_HEADERS, Tags } from "opentracing";
 import "reflect-metadata";
-import { defaultTransformPathInSpanName, IOptionsMiddlewareExpress, RequestTags } from "../interfaces/interfaces";
+import { defaultTransformPathInSpanName, IOptionsMiddleware, RequestTags } from "../interfaces/interfaces";
 
 /**
  * Middleware for express server, if request have a span in request header it will create a child span from it.
@@ -12,7 +12,7 @@ import { defaultTransformPathInSpanName, IOptionsMiddlewareExpress, RequestTags 
  * @param options.requestTags array of values of request "query","body","headers","id","params","username" to create a tag.
  * @param options.transformPathInSpanName: function to transform path in span name, default is path to be span name.
  */
-export const expressMiddlewareTracer = (options: IOptionsMiddlewareExpress): express.RequestHandler => {
+export const expressMiddlewareTracer = (options: IOptionsMiddleware): express.RequestHandler => {
   const requestTags = options.requestTags ? options.requestTags : new Array<RequestTags>();
   const transformPathInSpanName = options.transformPathInSpanName ? options.transformPathInSpanName : defaultTransformPathInSpanName;
 
