@@ -1,5 +1,5 @@
 "use strict";
-var decorators = require("../../../dist/index.js");
+var decorators = require("../../index");
 
 class Child {
 

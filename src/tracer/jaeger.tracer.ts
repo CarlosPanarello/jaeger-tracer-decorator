@@ -1,37 +1,19 @@
+import jaegerClient = require("jaeger-client");
 import { isNumber } from "util";
+import pjson = require("../../package.json");
 import * as METADATA_KEY from "../constants/metadata_key";
-
-const defaultConfig = {
-  serviceName: process.env.JAEGER_SERVICE_NAME || "default_service_name",
-  version: process.env.JAEGER_SERVICE_VERSION || process.env.npm_package_version || "0.0.0",
-  sampler: {
-    type: process.env.JAEGER_SAMPLER_TYPE || "remote",
-    param: process.env.JAEGER_SAMPLER_PARAM ? Number(process.env.JAEGER_SAMPLER_PARAM) : 1,
-  },
-  reporter: {
-    logSpans: process.env.JAEGER_REPORTER_LOG_SPANS ? Boolean(process.env.JAEGER_REPORTER_LOG_SPANS) : true,
-    agentHost: process.env.JAEGER_AGENT_HOST || "localhost",
-    agentPort: isNumber(process.env.JAEGER_AGENT_PORT) ? Number(process.env.JAEGER_AGENT_PORT) : 6832,
-  },
-};
-
-const defaultConsoleLogger = {
-  info: (info: any) => console.log(info),
-  error: (error: any) => console.log(error),
-};
+import { IJaegerOptions } from "../index.js";
 
 const defaultNoLogger = {
   info: Function(),
   error: Function(),
 };
 
-export const Logger = process.env.NODE_ENV === "development" ? defaultConsoleLogger : defaultNoLogger;
-
-const defaultOptions = (prometheus?: any, logger?: any) => {
+const defaultOptions = (serviceName: string, version: string, prometheus?: any, logger?: any) => {
 
   if (!logger) {
-    logger = Logger;
-   }
+    logger = defaultNoLogger;
+  }
 
   const options = {
     tags: {},
@@ -40,15 +22,15 @@ const defaultOptions = (prometheus?: any, logger?: any) => {
   };
 
   if (prometheus) {
-    const promFactory = require("jaeger-client").PrometheusMetricsFactory;
-    options.metrics = new promFactory(prometheus, defaultConfig.serviceName);
+    const promFactory = jaegerClient.PrometheusMetricsFactory;
+    options.metrics = new promFactory(prometheus, serviceName);
   } else {
     delete options.metrics;
   }
 
-  if (defaultConfig.version) {
-    Object.defineProperty(options.tags, defaultConfig.serviceName, {
-      value: { version: defaultConfig.version },
+  if (version.trim().length > 0) {
+    Object.defineProperty(options.tags, serviceName, {
+      value: { version },
       enumerable: true,
       writable: true,
       configurable: true,
@@ -57,22 +39,36 @@ const defaultOptions = (prometheus?: any, logger?: any) => {
   return options;
 };
 /**
- * Class to hold a tracer
+ * Class to create and hold a jaeger tracer.
  */
 export class JaegerTracer {
-  public tracer: any;
-
-  constructor(prometheus?: any, logger?: any) {
-    this.createNewTracer(prometheus, logger);
+  public tracer: jaegerClient.Tracer;
+  /**
+   * Create Tracer
+   * @param prometheus optional for add jaeger metrics to your metics.
+   * @param logger optional for add jaeger logger to your logger.
+   * @param options optional if is not inform it will get the options from enviroment.
+   */
+  constructor(prometheus?: any, logger?: any, options?: IJaegerOptions) {
+    this.tracer = this.createNewTracer(prometheus, logger, options);
   }
 
   /**
    * Create a new Tracer
    * @param prometheus optional for add jaeger metrics to your metics.
    * @param logger optional for add jaeger logger to your logger.
+   * @param options optional if is not inform it will get the options from enviroment.
    */
-  public createNewTracer(prometheus?: any, logger?: any) {
-    this.tracer = require("jaeger-client").initTracer(defaultConfig, defaultOptions(prometheus, logger));
+  public createNewTracer(prometheus?: any, logger?: any, options?: IJaegerOptions): jaegerClient.Tracer  {
+    if (options) {
+      this.tracer = jaegerClient.initTracer(options, defaultOptions(options.serviceName, options.serviceVersion,  prometheus, logger));
+    } else {
+      const serviceName = process.env.JAEGER_SERVICE_NAME ? process.env.JAEGER_SERVICE_NAME : "default_service_name";
+      process.env.JAEGER_SERVICE_NAME = serviceName;
+      const version = process.env.JAEGER_SERVICE_VERSION || pjson.version;
+      this.tracer = jaegerClient.initTracerFromEnv({}, defaultOptions(serviceName, version,  prometheus, logger));
+    }
     Reflect.defineMetadata(METADATA_KEY.GLOBAL_TRACER, this.tracer, JaegerTracer);
+    return this.tracer;
   }
 }

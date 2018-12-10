@@ -1,77 +1,20 @@
 import "reflect-metadata";
 import { DESIGN_TYPES } from "../constants/metadata_key";
 import { getHeaderSpan, setTagSpan, TraceableClassDecorator, TraceableMethodDecorator } from "./decorators_ts";
-/**
- * Function to get parent prototype from object
- *
- * @param target object
- */
-function getParentPrototype(target: any): any {
-    const proto = Object.getPrototypeOf(target);
-    const functionPrototype = Object.getPrototypeOf(Function);
-    if (typeof target !== "function" || target === functionPrototype) {
-        return  proto;
-    }
-    if (proto !== functionPrototype) {
-        return  proto;
-    }
-    const prototype = target.prototype;
-    const prototypeProto = prototype && Object.getPrototypeOf(prototype);
-    if (prototypeProto === undefined || prototypeProto === Object.prototype) {
-        return proto;
-    }
-    // If the constructor was not a function, then we cannot determine the heritage.
-    const constructor = prototypeProto.constructor;
-    if (typeof constructor !== "function") {
-        return proto;
-    }
-    // If we have some kind of self-reference, then we cannot determine the heritage.
-    if (constructor === target) {
-        return proto;
-    }
-    return constructor;
-}
+
 /**
  * Function copied from typescript create after run tsc.
  *
  * @param args args
  */
 function decoratorJs(...args: any[]) {
-    const decorators = args[0];
-    const target = args[1];
-    let key: any;
-    let desc: any;
-    if (args.length > 2) {
-        key = args[2];
-    }
-    if (args.length > 3) {
-        desc = args[3];
-    }
-    const c = arguments.length;
-    let r;
-    let d;
-
-    if (c < 3) {
-        r = target;
-    } else {
-        if (!desc) {
-            desc = Object.getOwnPropertyDescriptor(target, key);
-        }
-        r = desc;
-    }
-
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") {
-        r = Reflect.decorate(decorators, target, key, desc);
-    } else {
-        for (let i = decorators.length - 1; i >= 0; i--) {
-            d = decorators[i];
-            if (d) {
-                r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-            }
-        }
-    }
-
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+  const decorators = args[0];
+  const target = args[1];
+  const key =  args[2];
+  const desc = Object.getOwnPropertyDescriptor(target, key);
+  const c = arguments.length;
+  const r = Reflect.decorate(decorators, target, key, desc);
+  return c > 3 && r;
 }
 
 /**
@@ -99,7 +42,7 @@ function decoratorJs(...args: any[]) {
  *
  */
 function decoratePropertyTag(target: any, propertyName: string, nameTag?: string): any {
-    return decoratorJs([setTagSpan(nameTag), Reflect.metadata(DESIGN_TYPES, Object)], target.prototype, propertyName, void 0);
+  return decoratorJs([setTagSpan(nameTag), Reflect.metadata(DESIGN_TYPES, Object)], target.prototype, propertyName, void 0);
 }
 
 /**
@@ -132,7 +75,7 @@ function decoratePropertyTag(target: any, propertyName: string, nameTag?: string
  *
  */
 function decoratePropertyHeader(target: any, propertyName: string): any {
-    return decoratorJs([getHeaderSpan(), Reflect.metadata(DESIGN_TYPES, Object)], target.prototype, propertyName, void 0);
+  return decoratorJs([getHeaderSpan(), Reflect.metadata(DESIGN_TYPES, Object)], target.prototype, propertyName, void 0);
 }
 
 /**
@@ -159,8 +102,8 @@ function decoratePropertyHeader(target: any, propertyName: string): any {
  *
  */
 function decorateMethod(target: any, methodName: string): any {
-    const targetFather = getParentPrototype(target.prototype);
-    Object.defineProperty(target.prototype, methodName, Reflect.decorate([TraceableMethodDecorator as MethodDecorator], targetFather, methodName));
+  const targetFather = Object.getPrototypeOf(target.prototype);
+  Object.defineProperty(target.prototype, methodName, Reflect.decorate([TraceableMethodDecorator as MethodDecorator], targetFather, methodName));
 }
 /**
  * Decorator for use in Classes only.
@@ -181,11 +124,12 @@ function decorateMethod(target: any, methodName: string): any {
  *
  */
 function decorateClass(target: any): any {
-    return Reflect.decorate([TraceableClassDecorator as ClassDecorator], target);
+  return Reflect.decorate([TraceableClassDecorator as ClassDecorator], target);
 }
 
 export {
-    decorateClass,
-    decorateMethod,
-    decoratePropertyTag,
-    decoratePropertyHeader};
+  decorateClass,
+  decorateMethod,
+  decoratePropertyTag,
+  decoratePropertyHeader,
+};

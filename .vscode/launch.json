@@ -136,6 +136,32 @@
         "debug-express-ts"
       ],
       "port": 9229
-    },      
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Jest Tests",
+      "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
+      "args": [
+        "-i",
+        "tracer.test.ts"
+      ],
+      "preLaunchTask": "build",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outFiles": [
+        "${workspaceRoot}/dist/*"
+      ],
+      // "envFile": "${workspaceRoot}/.env"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Jest Tests with Server",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [ "test" ],
+      "port": 9229,
+      "preLaunchTask": "build",
+      // "envFile": "${workspaceRoot}/.env"
+    }        
   ]
 }

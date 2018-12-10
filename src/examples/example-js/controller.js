@@ -1,7 +1,7 @@
 "use strict";
 require('dotenv').config()
-var Parent = require("./parent.js")
-var decorators = require("../../../dist/index.js");
+var Parent = require("./parent")
+var decorators = require("../../index");
 
 class Controller {
 
@@ -10,14 +10,10 @@ class Controller {
   }
 
   getName(req) {
-    console.log("Span", req.params.jaegerSpan);
-    console.log("Header", req.params.jaegerHeader);
     return this.Homer.sayYourFullName();
   }
 
   getSon(req) {
-    console.log("Span", req.params.jaegerSpan);
-    console.log("Header", req.params.jaegerHeader);
     return this.Homer.sayYourSonFullName();
   }
 }
