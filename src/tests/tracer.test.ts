@@ -1,4 +1,3 @@
-import jaegerClient = require("jaeger-client");
 import "jest";
 import * as Prometheus from "prom-client";
 import "reflect-metadata";
@@ -11,6 +10,7 @@ import { Controller } from "../examples/example-ts/controller";
 import { Parent } from "../examples/example-ts/parent";
 import { JaegerTracer, middlewareTracer, RequestTags } from "../index";
 import { IJaegerOptions, IOptionsMiddleware } from "../interfaces/interfaces";
+import { jaegerClient } from "../tracer/jaeger.tracer";
 
 const TAG_HEADER = "uber-trace-id";
 

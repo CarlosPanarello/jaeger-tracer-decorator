@@ -1,6 +1,6 @@
 {
   "name": "jaeger-tracer-decorator",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "Decorators for create Jaeger Spans for tracing in node apps",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
@@ -21,7 +21,7 @@
     "build-w": "npm run clean && npm install && npm run typew && npm run tslint",
     "build": "npm run clean && npm install && npm run type && npm run tslint && echo Build finished!!!",
     "pack": "npm run build && npm pack && echo Pack finished!!!",
-    "pretest": "cp -R ./src/examples/example-js/ ./dist/src/examples/example-js/",
+    "pretest": "cp -R ./src/examples/example-js/ ./dist/examples/example-js/",
     "test": "jest"
   },
   "repository": {

@@ -1,8 +1,8 @@
-import jaegerClient = require("jaeger-client");
 import "reflect-metadata";
 import { isFunction, isObject } from "util";
 import { defaultEndpointForTracing, defaultTransformPathInSpanName } from "../interfaces/interfaces";
 import { IOptionsMiddleware, RequestTags } from "../interfaces/interfaces";
+import { jaegerClient } from "./jaeger.tracer";
 
 const Tags = jaegerClient.opentracing.Tags;
 const FORMAT_HTTP_HEADERS = jaegerClient.opentracing.FORMAT_HTTP_HEADERS;

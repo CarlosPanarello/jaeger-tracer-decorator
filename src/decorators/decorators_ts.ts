@@ -1,10 +1,9 @@
-import jaegerClient = require("jaeger-client");
 import "reflect-metadata";
 import { isFunction, isUndefined } from "util";
 import * as ERROR_MSG from "../constants/error_msgs";
 import * as METADATA_KEY from "../constants/metadata_key";
 import { IMetadataTracer } from "../interfaces/interfaces";
-import { JaegerTracer } from "../tracer/jaeger.tracer";
+import { jaegerClient, JaegerTracer } from "../tracer/jaeger.tracer";
 
 const Tags = jaegerClient.opentracing.Tags;
 const FORMAT_HTTP_HEADERS = jaegerClient.opentracing.FORMAT_HTTP_HEADERS;
