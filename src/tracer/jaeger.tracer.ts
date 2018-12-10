@@ -1,8 +1,8 @@
-import jaegerClient = require("jaeger-client");
-import { isNumber } from "util";
-import pjson = require("../../package.json");
 import * as METADATA_KEY from "../constants/metadata_key";
 import { IJaegerOptions } from "../index.js";
+
+// tslint:disable-next-line:no-var-requires
+export const jaegerClient = require("jaeger-client");
 
 const defaultNoLogger = {
   info: Function(),
@@ -42,7 +42,7 @@ const defaultOptions = (serviceName: string, version: string, prometheus?: any, 
  * Class to create and hold a jaeger tracer.
  */
 export class JaegerTracer {
-  public tracer: jaegerClient.Tracer;
+  public tracer: any;
   /**
    * Create Tracer
    * @param prometheus optional for add jaeger metrics to your metics.
@@ -59,13 +59,13 @@ export class JaegerTracer {
    * @param logger optional for add jaeger logger to your logger.
    * @param options optional if is not inform it will get the options from enviroment.
    */
-  public createNewTracer(prometheus?: any, logger?: any, options?: IJaegerOptions): jaegerClient.Tracer  {
+  public createNewTracer(prometheus?: any, logger?: any, options?: IJaegerOptions): any  {
     if (options) {
       this.tracer = jaegerClient.initTracer(options, defaultOptions(options.serviceName, options.serviceVersion,  prometheus, logger));
     } else {
       const serviceName = process.env.JAEGER_SERVICE_NAME ? process.env.JAEGER_SERVICE_NAME : "default_service_name";
       process.env.JAEGER_SERVICE_NAME = serviceName;
-      const version = process.env.JAEGER_SERVICE_VERSION || pjson.version;
+      const version = process.env.JAEGER_SERVICE_VERSION || "";
       this.tracer = jaegerClient.initTracerFromEnv({}, defaultOptions(serviceName, version,  prometheus, logger));
     }
     Reflect.defineMetadata(METADATA_KEY.GLOBAL_TRACER, this.tracer, JaegerTracer);

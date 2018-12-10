@@ -1,6 +1,3 @@
-
-import { Tracer } from "jaeger-client";
-import { JaegerTracer } from "../tracer/jaeger.tracer";
 export interface IMetadataTracer {
   arg: any;
   className: string;
@@ -52,7 +49,7 @@ export interface IJaegerOptions {
   };
 }
 export interface IOptionsMiddleware {
-  tracer: Tracer;
+  tracer: any;
   requestTags?: RequestTags[];
   endpointForTracing?: EndpointForTracing;
   transformPathInSpanName?: TransformPathInSpanName;
