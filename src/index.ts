@@ -1,17 +1,16 @@
 import { decorateClass, decorateMethod, decoratePropertyHeader, decoratePropertyTag } from "./decorators/decorators_js";
 import { getHeaderSpan, setTagSpan, traceable } from "./decorators/decorators_ts";
-import { EndpointForTracing, RequestTags, TransformPathInSpanName } from "./interfaces/interfaces";
-import { expressMiddlewareTracer } from "./tracer/express.tracer";
+import { EndpointForTracing, IJaegerOptions, RequestTags, TransformPathInSpanName } from "./interfaces/interfaces";
 import { JaegerTracer } from "./tracer/jaeger.tracer";
-import { restifyMiddlewareTracer } from "./tracer/restify.tracer";
+import { middlewareTracer } from "./tracer/middleware.tracer";
 
 export {
-  expressMiddlewareTracer,
-  restifyMiddlewareTracer,
+  middlewareTracer,
   JaegerTracer,
   RequestTags,
   EndpointForTracing,
   TransformPathInSpanName,
+  IJaegerOptions,
   traceable,
   getHeaderSpan,
   setTagSpan,

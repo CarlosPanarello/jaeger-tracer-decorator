@@ -1,4 +1,4 @@
-import { traceable  } from "../../decorators/decorators_ts";
+import { traceable  } from "../../index";
 
 @traceable()
 export class Child {

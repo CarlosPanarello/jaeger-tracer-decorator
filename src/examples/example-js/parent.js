@@ -1,11 +1,11 @@
 "use strict";
-var decorators = require("../../../dist/index.js");
-var Child = require("./child.js")
+var decorators = require("../../index");
+var Child = require("./child")
 
 class Parent {
 
-  constructor(first, last) {
-    this.child = new Child(last, "Bart");
+  constructor(first, last, sonName) {
+    this.child = new Child(last, sonName);
     this.fullName = first + " " + last;
   }
 
@@ -19,11 +19,10 @@ class Parent {
     return this.fullName;
   }
 
-  my_header_generator_method(){
-    const agent = new https.Agent({ rejectUnauthorized: false });
+  myHeaderGenMethod(){
     let headers = {"x-api-key": "mySecret"};
     headers = {...this.mygetHeaderSpan, ...headers};
-    const opts = { timeout: 3000, headers, httpsAgent: agent};
+    const opts = { timeout: 3000, headers};
     return opts;
   }
 }
@@ -31,7 +30,7 @@ class Parent {
 Parent = decorators.decorateClass(Parent);
 decorators.decorateMethod(Parent, "sayYourSonFullName");
 decorators.decorateMethod(Parent, "sayYourFullName");
-decorators.decorateMethod(Parent, "my_header_generator_method");
+decorators.decorateMethod(Parent, "myHeaderGenMethod");
 decorators.decoratePropertyTag(Parent, "myOtherTag", "full_name_son");
 decorators.decoratePropertyTag(Parent, "myTag");
 decorators.decoratePropertyHeader(Parent, "mygetHeaderSpan");

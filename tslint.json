@@ -66,5 +66,11 @@
         "max-line-length": [true, 200], 
         "object-literal-sort-keys": false 
     },
-    "rulesDirectory": []
+    "rulesDirectory": [],
+    "linterOptions": {
+        "exclude": [
+            "*.json",
+            "**/*.json"
+        ]
+    }
 }

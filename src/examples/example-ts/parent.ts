@@ -18,8 +18,8 @@ export class Parent {
 
   private fullName: string;
 
-  constructor(first: string, last: string) {
-    this.child = new Child(last, "Bart");
+  constructor(first: string, last: string, sonsName: string) {
+    this.child = new Child(last, sonsName);
     this.fullName = first + " " + last;
   }
 
@@ -36,7 +36,15 @@ export class Parent {
   }
 
   @traceable()
-  public async my_header_generator_method(): Promise<any> {
+  public sayYourFullNameAsPromise(): any {
+    this.myTag = this.fullName;
+    return new Promise((sucess) => {
+      sucess(this.fullName);
+    });
+  }
+
+  @traceable()
+  public myHeaderGenMethod(): any {
     const agent = new https.Agent({ rejectUnauthorized: false });
     let headers = {"x-api-key": "mySecret"};
     headers = {...this.mygetHeaderSpan, ...headers};

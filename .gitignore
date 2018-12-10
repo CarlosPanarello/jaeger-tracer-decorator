@@ -19,7 +19,8 @@
 # dependencies
 /node_modules
 package-lock.json
-
+#coverage
+/coverage
 # IDEs and editors
 /.idea
 .project
@@ -36,9 +37,6 @@ package-lock.json
 !.vscode/launch.json
 !.vscode/extensions.json
 
-# jest coverage
-/coverage
-
 # misc
 /.sass-cache
 /connect.lock
@@ -53,6 +51,3 @@ workspace.json
 # System Files
 .DS_Store
 Thumbs.db
-
-# Test files - executions
-jmeter.log
