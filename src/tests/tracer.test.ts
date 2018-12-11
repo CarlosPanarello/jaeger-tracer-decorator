@@ -6,11 +6,11 @@ import * as request from "supertest";
 import * as ERROR_MSG from "../constants/error_msgs";
 import * as METADATA_KEY from "../constants/metadata_key";
 import { traceable } from "../decorators/decorators_ts";
-import { Controller } from "../examples/example-ts/controller";
-import { Parent } from "../examples/example-ts/parent";
 import { JaegerTracer, middlewareTracer, RequestTags } from "../index";
 import { IJaegerOptions, IOptionsMiddleware } from "../interfaces/interfaces";
 import { jaegerClient } from "../tracer/jaeger.tracer";
+import { Controller } from "./controller";
+import { Parent } from "./parent";
 
 const TAG_HEADER = "uber-trace-id";
 
@@ -22,7 +22,7 @@ beforeAll(() => {
 describe("Decorators in javascript", () => {
   test("Using Traceable setTagSpan getHeaderSpan in Class and Methods", () => {
     const myJaeger = new JaegerTracer();
-    const MyParent = require("../examples/example-js/parent");
+    const MyParent = require("./js_classes/parent");
     const father = new MyParent("MyFirstName", "MyLastName", "SonName");
     expect("MyFirstName MyLastName").toBe(father.sayYourFullName() );
     expect("My name is SonName MyLastName").toBe(father.sayYourSonFullName());

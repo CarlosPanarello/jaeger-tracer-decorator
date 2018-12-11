@@ -4,7 +4,6 @@ var decorators = require("../../index");
 class Child {
 
   constructor(fathersLastName, myName) {
-    console.log("Constructor of Child");
     this.myLastName = fathersLastName;
     this.myName = myName;
   }

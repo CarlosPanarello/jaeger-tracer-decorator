@@ -1,4 +1,4 @@
-import { traceable } from "../../index";
+import { traceable } from "../index";
 import { Parent } from "./parent";
 
 @traceable()
