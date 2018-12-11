@@ -1,4 +1,4 @@
-import { traceable  } from "../../index";
+import { traceable  } from "../index";
 
 @traceable()
 export class Child {
@@ -7,7 +7,6 @@ export class Child {
   private myLastName: string;
 
   constructor(fathersLastName: string, myName: string) {
-    console.log("Constructor of Child");
     this.myLastName = fathersLastName;
     this.myName = myName;
   }

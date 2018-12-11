@@ -5,15 +5,6 @@
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "scripts": {
-    "debug-js": "node --nolazy --inspect-brk=9229 ./src/examples/example-js/index.js",
-    "start-js": "node ./src/examples/example-js/index.js",
-    "debug-ts": "node -r dotenv/config --nolazy --inspect-brk=9229 ./dist/examples/example-ts/index.js",
-    "start-ts": "node -r dotenv/config ./dist/examples/example-ts/index.js",
-    "debug-restify": "node -r dotenv/config --nolazy --inspect-brk=9229 ./dist/examples/example-ts/server.js",
-    "start-restify": "node -r dotenv/config ./dist/examples/example-ts/server.js",
-    "debug-express": "node --nolazy --inspect-brk=9229 ./src/examples/example-js/server.js",
-    "debug-express-ts": "node -r dotenv/config --nolazy --inspect-brk=9229 ./dist/examples/example-ts/server.express.js",
-    "start-express": "node ./src/examples/example-js/server.js",
     "tslint": "node_modules/.bin/tslint -c tslint.json --project tsconfig.json",
     "type": "node_modules/.bin/tsc",
     "typew": "node_modules/.bin/tsc -w",
@@ -21,7 +12,7 @@
     "build-w": "npm run clean && npm install && npm run typew && npm run tslint",
     "build": "npm run clean && npm install && npm run type && npm run tslint && echo Build finished!!!",
     "pack": "npm run build && npm pack && echo Pack finished!!!",
-    "pretest": "cp -R ./src/examples/example-js/ ./dist/examples/example-js/",
+    "pretest": "cp -R ./src/tests/js_classes/ ./dist/tests/js_classes/",
     "test": "jest"
   },
   "files": [
@@ -59,11 +50,11 @@
     ]
   },
   "dependencies": {
-    "dotenv": "^6.1.0",
     "jaeger-client": "^3.13.0",
     "reflect-metadata": "^0.1.12"
   },
   "devDependencies": {
+    "dotenv": "^6.1.0",
     "@types/dotenv": "^6.1.0",
     "@types/jest": "23.3.1",
     "@types/jest-cli": "^23.6.0",

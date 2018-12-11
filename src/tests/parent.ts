@@ -1,5 +1,5 @@
 import https = require("https");
-import { getHeaderSpan, setTagSpan, traceable  } from "../../decorators/decorators_ts";
+import { getHeaderSpan, setTagSpan, traceable  } from "../decorators/decorators_ts";
 import { Child } from "./child";
 
 @traceable()
