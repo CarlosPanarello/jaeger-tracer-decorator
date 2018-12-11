@@ -79,7 +79,7 @@ const requestTags: RequestTags[] = ["id", "headers"];
 
 const server = restify.createServer({
   name: "Exemple Restify Server Typescript",
-  version: process.env.npm_package_version ? process.env.npm_package_version : "0.0.0",
+  version: process.env.npm_package_version | "0.0.0",
 });
 
 server.use(restifyMiddlewareTracer({
