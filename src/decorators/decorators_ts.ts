@@ -63,8 +63,6 @@ function extractSpanFromArgs(tracer: any, spanName: string, ...args: any[]) {
   const hasSpanOrHeader = args[0].some((arg: any) => {
     if (arg && arg.params && arg.params.jaegerSpan) {
       span = tracer.startSpan(spanName, { childOf: arg.params.jaegerSpan });
-      span.setTag(Tags.SPAN_KIND, Tags.SPAN_KIND_RPC_SERVER);
-
       return true;
     }
     if (arg && arg.headers && arg.path && arg.method) {
@@ -119,7 +117,6 @@ export function TraceableMethodDecorator(target: object, propertyKey: string, de
 
     if (data.spanStack.length > 0 && data.spanStack[data.spanStack.length - 1]) {
       internalSpan = tracer.startSpan(spanName, { childOf: data.spanStack[data.spanStack.length - 1] });
-      internalSpan.setTag(Tags.SPAN_KIND, Tags.SPAN_KIND_RPC_SERVER);
     } else {
       internalSpan = extractSpanFromArgs(tracer, spanName, args);
     }

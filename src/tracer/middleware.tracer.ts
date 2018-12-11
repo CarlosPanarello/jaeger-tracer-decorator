@@ -32,7 +32,7 @@ export const middlewareTracer = (options: IOptionsMiddleware): any => {
         span = options.tracer.startSpan(spanName, { childOf: parentSpanContext });
         span.setTag(Tags.SPAN_KIND, Tags.SPAN_KIND_RPC_SERVER);
       } else {
-        span = options.tracer.startSpan(spanName, undefined);
+        span = options.tracer.startSpan(spanName);
         span.setTag(Tags.SPAN_KIND, Tags.SPAN_KIND_RPC_CLIENT);
       }
       const header = {};
