@@ -55,8 +55,7 @@ For middleware you need JaegerTracer instance, and the other params are optional
 
 ```ts
 import * as restify from "restify";
-import { restifyMiddlewareTracer, TransformPathInSpanName } from "../../index";
-import { EndpointForTracing, JaegerTracer, RequestTags  } from "../../index";
+import { middlewareTracer, TransformPathInSpanName, EndpointForTracing, JaegerTracer, RequestTags  } from "jaeger-tracer-decorator";
 import { Controller } from "./controller";
 
 const jaegerTracer = new JaegerTracer();
@@ -82,8 +81,8 @@ const server = restify.createServer({
   version: process.env.npm_package_version | "0.0.0",
 });
 
-server.use(restifyMiddlewareTracer({
-  jaegerTracer,
+server.use(middlewareTracer({
+  tracer: jaegerTracer.tracer,
   endpointForTracing,
   transformPathInSpanName,
   requestTags,
@@ -115,8 +114,7 @@ server.listen(process.env.NODE_PORT ? process.env.NODE_PORT : 3000);
 import * as bodyParser from "body-parser";
 import * as express from "express";
 import uuidv4 = require("uuid/v4");
-import { expressMiddlewareTracer, TransformPathInSpanName } from "../../index";
-import { JaegerTracer, RequestTags  } from "../../index";
+import { middlewareTracer, TransformPathInSpanName, EndpointForTracing, JaegerTracer, RequestTags  } from "jaeger-tracer-decorator";
 import { Controller } from "./controller";
 
 const server = express();
@@ -134,7 +132,12 @@ const transformPathInSpanName: TransformPathInSpanName = (path: string) => {
   }
 };
 
-const server = express();
+const middle = middlewareTracer(middlewareTracer({
+  tracer: jaegerTracer.tracer,
+  endpointForTracing,
+  transformPathInSpanName,
+  requestTags,
+}))
 
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
@@ -151,14 +154,14 @@ server.get("/ping",
 });
 
 server.get("/fullname/son",
-expressMiddlewareTracer({jaegerTracer, requestTags, transformPathInSpanName }),
+  middle,
   async (req: express.Request, res: express.Response, next: express.NextFunction)  => {
   res.send(new Controller().getSon(req));
 });
 
 server.get("/fullname/father",
-expressMiddlewareTracer({jaegerTracer, requestTags, transformPathInSpanName }),
-async (req: express.Request, res: express.Response, next: express.NextFunction)  => {
+  middle,
+  async (req: express.Request, res: express.Response, next:     express.NextFunction)  => {
   res.send(new Controller().getName(req));
 });
 

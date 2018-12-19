@@ -56,13 +56,13 @@ export function TraceableClassDecorator<T extends { new(...args: any[]): object 
     }
   };
 }
-/** Search Span in args of a class Method, span could be in params.jaegerSpan or headers */
+/** Search Span in args of a class Method, span could be in req.jaegerSpan or headers */
 function extractSpanFromArgs(tracer: any, spanName: string, ...args: any[]) {
   let span: any;
   /** Stop in the first occurrs JaegerSpan or headers from args */
   const hasSpanOrHeader = args[0].some((arg: any) => {
-    if (arg && arg.params && arg.params.jaegerSpan) {
-      span = tracer.startSpan(spanName, { childOf: arg.params.jaegerSpan });
+    if (arg && arg.jaegerSpan) {
+      span = tracer.startSpan(spanName, { childOf: arg.jaegerSpan });
       return true;
     }
     if (arg && arg.headers && arg.path && arg.method) {
