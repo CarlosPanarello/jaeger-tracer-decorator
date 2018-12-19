@@ -12,6 +12,7 @@ const FORMAT_HTTP_HEADERS = jaegerClient.opentracing.FORMAT_HTTP_HEADERS;
  * In finish or close event will finish the span created.
  *
  * If you want send a span to another service you can add req.param.jaegarHeader in your header request.
+ * @param options.tracer tracer that you can obtain by calling Jaeger.tracer.
  * @param options.requestTags array of values of request "query","body","headers","id","params","username" to create a tag.
  * @param options.endpointForTracing function to filter which path do you want to trace, default is a function that return true.
  * @param options.transformPathInSpanName: function to transform path in span name, default is path to be span name.
@@ -51,8 +52,8 @@ export const middlewareTracer = (options: IOptionsMiddleware): any => {
         span.setTag(item , resultOfProperty);
       });
 
-      req.params.jaegerSpan = span;
-      req.params.jaegerHeader = header;
+      req.jaegerSpan = span;
+      req.jaegerHeader = header;
 
       const finish = () => {
         span.finish();
@@ -60,6 +61,6 @@ export const middlewareTracer = (options: IOptionsMiddleware): any => {
       resp.on("finish", finish);
       resp.on("close", finish);
     }
-    return next();
+    next();
   };
 };

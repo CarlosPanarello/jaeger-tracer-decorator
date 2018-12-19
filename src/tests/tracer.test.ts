@@ -79,8 +79,8 @@ describe("Using Restify Server with middleware", () => {
           res.send(new Controller().getName(req));
           next();
         });
-        this.app.get("/header", async (req: restify.Request, res: restify.Response, next: restify.Next) => {
-          res.send({header: req.params.jaegerHeader});
+        this.app.get("/header", async (req: any, res: restify.Response, next: restify.Next) => {
+          res.send({header: req.jaegerHeader});
         });
         this.app.listen(process.env.NODE_PORT ? process.env.NODE_PORT : 3000);
         return this.app;
@@ -179,8 +179,8 @@ describe("Using Restify Server with middleware with functions and metrics", () =
           res.send(new Controller().getName(req));
           next();
         });
-        this.app.get("/header", async (req: restify.Request, res: restify.Response, next: restify.Next) => {
-          res.send({header: req.params.jaegerHeader});
+        this.app.get("/header", async (req: any, res: restify.Response, next: restify.Next) => {
+          res.send({header: req.jaegerHeader});
         });
         this.app.listen(process.env.NODE_PORT ? process.env.NODE_PORT : 3000);
         return this.app;
