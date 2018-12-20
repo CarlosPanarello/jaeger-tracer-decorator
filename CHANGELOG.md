@@ -1,5 +1,9 @@
 # Changes by Version
 
+## 2.0.3 (2018-12-20)
+
+* Fix use set tag and get header when use with typescript
+
 ## 2.0.2 (2018-12-19)
 
 * Fix use express with javascript

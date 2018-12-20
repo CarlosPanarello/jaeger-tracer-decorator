@@ -192,11 +192,13 @@ export const setTagSpan = (tagName?: string) => {
     /** Override the Property setter, using value to add a tag */
     const setter = (val: any) => {
       const data: IMetadataTracer = Reflect.getMetadata(METADATA_KEY.CLASS_TRACER, target);
-      const span = data.spanStack[data.spanStack.length - 1];
-      if (tagName && (new RegExp("^[a-z](?:_?[a-z0-9]+)*$", "i")).test(tagName)) {
-        span.setTag(tagName, val);
-      } else {
-        span.setTag(key, val);
+      if (data && data.spanStack.length > 0) {
+        const span = data.spanStack[data.spanStack.length - 1];
+        if (tagName && (new RegExp("^[a-z](?:_?[a-z0-9]+)*$", "i")).test(tagName)) {
+          span.setTag(tagName, val);
+        } else {
+          span.setTag(key, val);
+        }
       }
       prop = val;
     };
@@ -245,10 +247,12 @@ export const getHeaderSpan = () => {
       const data: IMetadataTracer = Reflect.getMetadata(METADATA_KEY.CLASS_TRACER, target);
       const tracer = Reflect.getMetadata(METADATA_KEY.GLOBAL_TRACER, JaegerTracer);
 
-      const header = {};
-      const span = data.spanStack[data.spanStack.length - 1];
-      tracer.inject(span, FORMAT_HTTP_HEADERS, header);
-      prop = header;
+      if (data && data.spanStack.length > 0) {
+        const header = {};
+        const span = data.spanStack[data.spanStack.length - 1];
+        tracer.inject(span, FORMAT_HTTP_HEADERS, header);
+        prop = header;
+      }
       return prop;
     };
 
