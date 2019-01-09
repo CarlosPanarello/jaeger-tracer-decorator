@@ -1,5 +1,9 @@
 # Changes by Version
 
+## 2.1.0 (2019-01-09)
+
+* Add new tag statusCode and Route in middleware
+
 ## 2.0.3 (2018-12-20)
 
 * Fix use set tag and get header when use with typescript

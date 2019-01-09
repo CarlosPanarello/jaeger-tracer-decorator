@@ -7,7 +7,7 @@ import * as ERROR_MSG from "../constants/error_msgs";
 import * as METADATA_KEY from "../constants/metadata_key";
 import { traceable } from "../decorators/decorators_ts";
 import { JaegerTracer, middlewareTracer, RequestTags } from "../index";
-import { IJaegerOptions, IOptionsMiddleware } from "../interfaces/interfaces";
+import { IJaegerOptions, IOptionsMiddleware, ResponseTags } from "../interfaces/interfaces";
 import { jaegerClient } from "../tracer/jaeger.tracer";
 import { Controller } from "./controller";
 import { Parent } from "./parent";
@@ -61,11 +61,13 @@ describe("Using Restify Server with middleware", () => {
         this.app = restify.createServer({
           name: "Server for Test",
         });
-        const requestTags: RequestTags[] = ["id", "headers"];
+        const requestTags: RequestTags[] = ["id", "headers", "route"];
+        const responseTags: ResponseTags[] = ["statusCode"];
 
         const opt: IOptionsMiddleware = {
           tracer: this.myJaeger.tracer,
           requestTags,
+          responseTags,
         };
 
         this.app.use(middlewareTracer(opt));
