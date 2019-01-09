@@ -75,7 +75,7 @@ const transformPathInSpanName: TransformPathInSpanName = (path: string) => {
 };
 
 const requestTags: RequestTags[] = ["id", "headers"];
-const responseTags: RequestTags[] = ["statusCode"];
+const responseTags: ResponseTags[] = ["statusCode"];
 
 const server = restify.createServer({
   name: "Exemple Restify Server Typescript",
@@ -123,7 +123,7 @@ const server = express();
 
 const jaegerTracer = new JaegerTracer();
 const requestTags: RequestTags[] = ["query", "headers"];
-const responseTags: RequestTags[] = ["statusCode"];
+const responseTags: ResponseTags[] = ["statusCode"];
 
 const transformPathInSpanName: TransformPathInSpanName = (path: string) => {
   switch (true) {
