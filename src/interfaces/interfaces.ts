@@ -17,10 +17,16 @@ export type EndpointForTracing = (path: string) => boolean;
  */
 export type TransformPathInSpanName = (path: string) => string;
 /**
- * List of possible itens to be add as Tag in span in the middleware.
- * You can add query, body, headers, id, param , username as span tags.
+ * List of possible request property to be add as Tag in span in the middleware.
+ * You can add query, body, headers, id, param , username, route as span tags.
  */
-export type RequestTags = "query" |"body" | "headers" | "id" | "params" | "username";
+export type RequestTags = "query" |"body" | "headers" | "id" | "params" | "username" | "route";
+
+/**
+ * List of possible response property to be add as Tag in span in the middleware.
+ * You can add statusCode.
+ */
+export type ResponseTags = "statusCode";
 
 export const defaultEndpointForTracing = (path: string): boolean => true;
 export const defaultTransformPathInSpanName = (path: string): string => path;
@@ -51,6 +57,7 @@ export interface IJaegerOptions {
 export interface IOptionsMiddleware {
   tracer: any;
   requestTags?: RequestTags[];
+  responseTags?: ResponseTags[];
   endpointForTracing?: EndpointForTracing;
   transformPathInSpanName?: TransformPathInSpanName;
 }

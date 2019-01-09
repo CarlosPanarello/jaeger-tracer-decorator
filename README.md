@@ -75,6 +75,7 @@ const transformPathInSpanName: TransformPathInSpanName = (path: string) => {
 };
 
 const requestTags: RequestTags[] = ["id", "headers"];
+const responseTags: RequestTags[] = ["statusCode"];
 
 const server = restify.createServer({
   name: "Exemple Restify Server Typescript",
@@ -86,6 +87,7 @@ server.use(middlewareTracer({
   endpointForTracing,
   transformPathInSpanName,
   requestTags,
+  responseTags
 }));
 
 server.use(restify.plugins.queryParser());
@@ -121,6 +123,8 @@ const server = express();
 
 const jaegerTracer = new JaegerTracer();
 const requestTags: RequestTags[] = ["query", "headers"];
+const responseTags: RequestTags[] = ["statusCode"];
+
 const transformPathInSpanName: TransformPathInSpanName = (path: string) => {
   switch (true) {
     case path.startsWith("/fullname/son"):
@@ -137,6 +141,7 @@ const middle = middlewareTracer(middlewareTracer({
   endpointForTracing,
   transformPathInSpanName,
   requestTags,
+  responseTags
 }))
 
 server.use(bodyParser.json());
