@@ -1,5 +1,9 @@
 # Changes by Version
 
+## 2.1.2 (2019-01-12)
+
+* Add ResposeTags in index.ts for exporting
+
 ## 2.1.1 (2019-01-12)
 
 * Add ResposeTags in index.ts for exporting
