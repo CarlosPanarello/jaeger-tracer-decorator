@@ -43,6 +43,7 @@ For tracing your applictions you need to fill some requeriments
 * Tracing work only with classes and middleware.
 * For nested tracings, classes have to be instanced in the constructor of the main class.
 * To use midlleware a instance of JaegerTracer is needed.
+* Tracing doesn't work in static methods.
 
 You can instrumentalize the server, restify or express, adding the restify or express middleware.
 The middleware will create a span if request header has a tracer id, the span created will son of it.
