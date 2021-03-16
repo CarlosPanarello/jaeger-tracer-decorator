@@ -5,8 +5,8 @@ import { IJaegerOptions } from "../index.js";
 export const jaegerClient = require("jaeger-client");
 
 const defaultNoLogger = {
-  info: Function(),
-  error: Function(),
+  info: Function,
+  error: Function,
 };
 
 const defaultOptions = (serviceName: string, version: string, prometheus?: any, logger?: any) => {

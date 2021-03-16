@@ -27,7 +27,7 @@ describe("Decorators in javascript", () => {
     expect("MyFirstName MyLastName").toBe(father.sayYourFullName() );
     expect("My name is SonName MyLastName").toBe(father.sayYourSonFullName());
     expect(father.myHeaderGenMethod().headers[TAG_HEADER]).toBeDefined();
-    myJaeger.tracer.close(Function());
+    myJaeger.tracer.close();
   });
 });
 
