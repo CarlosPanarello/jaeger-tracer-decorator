@@ -69,7 +69,6 @@ export const middlewareTracer = (options: IOptionsMiddleware): any => {
         });
         span.finish();
       };
-      resp.on("finish", finish);
       resp.on("close", finish);
     }
     next();

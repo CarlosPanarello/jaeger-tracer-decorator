@@ -1,5 +1,9 @@
 # Changes by Version
 
+## 3.0.0 (2021-03-16)
+
+* remove event finish from resp.on in middleware.
+
 ## 2.1.2 (2019-01-12)
 
 * Add ResposeTags in index.ts for exporting
