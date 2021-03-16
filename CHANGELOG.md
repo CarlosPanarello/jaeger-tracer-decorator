@@ -1,5 +1,9 @@
 # Changes by Version
 
+## 3.0.1 (2021-03-16)
+
+* fix in build task.
+
 ## 3.0.0 (2021-03-16)
 
 * remove event finish from resp.on in middleware.
