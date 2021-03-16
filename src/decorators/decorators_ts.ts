@@ -45,7 +45,7 @@ export function traceable() {
   };
 }
 
-export function TraceableClassDecorator<T extends  new(...args: any[]) => object>(target: T): T {
+export function TraceableClassDecorator<T extends new(...args: any[]) => object>(target: T): T {
   return class InternalTracer extends target {
     constructor(...args: any[]) {
       super(...args);

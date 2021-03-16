@@ -27,7 +27,7 @@ describe("Decorators in javascript", () => {
     expect("MyFirstName MyLastName").toBe(father.sayYourFullName() );
     expect("My name is SonName MyLastName").toBe(father.sayYourSonFullName());
     expect(father.myHeaderGenMethod().headers[TAG_HEADER]).toBeDefined();
-    myJaeger.tracer.close();
+    myJaeger.tracer.close(Function());
   });
 });
 
@@ -326,7 +326,7 @@ describe("Decorators in Class and Methods of Typescript", () => {
   });
 
   afterEach(() => {
-    jaeger.tracer.close(Function);
+    jaeger.tracer.close();
   });
 
   test("Using Traceable setTagSpan getHeaderSpan in Class and Methods", () => {

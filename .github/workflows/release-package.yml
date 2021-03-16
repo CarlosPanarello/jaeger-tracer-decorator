@@ -2,10 +2,19 @@ name: Publish
 
 on:
   release:
-    types: [published]
+    types: [created]
 
 jobs:
   build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: npm test
+
+  publish-npm:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -16,4 +25,4 @@ jobs:
       - run: npm build
       - run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}   

@@ -12,7 +12,7 @@
     "build-w": "npm run clean && npm install && npm run typew && npm run tslint",
     "build": "npm run clean && npm install && npm run type && npm run tslint && echo Build finished!!!",
     "pack": "npm run build && npm pack && echo Pack finished!!!",
-    "pretest": "cp -R ./src/tests/js_classes/ ./dist/tests/js_classes/",
+    "pretest": "npm run clean && npm run type && cp -R ./src/tests/js_classes/ ./dist/tests/js_classes/",
     "test": "jest"
   },
   "files": [
@@ -50,7 +50,7 @@
     ]
   },
   "dependencies": {
-    "jaeger-client": "^3.13.0",
+    "jaeger-client": "3.13.0",
     "reflect-metadata": "^0.1.12"
   },
   "devDependencies": {
