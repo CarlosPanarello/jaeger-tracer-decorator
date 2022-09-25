@@ -1,5 +1,9 @@
 # Changes by Version
 
+## 3.0.3 (2022-09-25)
+
+* Fix throw error when Jaeger is disabled for testing purposes, [PR](https://github.com/CarlosPanarello/jaeger-tracer-decorator/pull/2).
+
 ## 3.0.2 (2021-03-16)
 
 * fix in build task.
