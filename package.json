@@ -58,7 +58,7 @@
 "dotenv": "^6.1.0",
     "@types/dotenv": "^6.1.0",
     "@types/jest": "29.5.14",
-    "@types/jest-cli": "29.5.14",
+    
     "@types/node": "^18.11.9",
     "@types/restify": "^7.2.6",
     "@types/supertest": "2.0.5",
