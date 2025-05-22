@@ -361,7 +361,11 @@ describe("Decorators in Class and Methods of Typescript", () => {
       myClass.my_func("test");
       fail();
     } catch (e) {
-      expect(e.message).toEqual(ERROR_MSG.INVALID_LOCAL_TRACEABLE_DECORATOR);
+      if (e instanceof Error) {
+        expect(e.message).toEqual(ERROR_MSG.INVALID_LOCAL_TRACEABLE_DECORATOR);
+      } else {
+        fail();
+      }
     }
   });
 
@@ -384,7 +388,11 @@ describe("Decorators in Class and Methods of Typescript", () => {
       myClass.my_func("test");
       fail();
     } catch (e) {
-      expect(e.message).toEqual(ERROR_MSG.INVALID_LOCAL_TRACEABLE_DECORATOR);
+      if (e instanceof Error) {
+        expect(e.message).toEqual(ERROR_MSG.INVALID_LOCAL_TRACEABLE_DECORATOR);
+      } else {
+        fail();
+      }
     }
   });
 
@@ -406,7 +414,11 @@ describe("Decorators in Class and Methods of Typescript", () => {
       myClass.my_func("test");
       fail();
     } catch (e) {
-      expect(e.message).toEqual(ERROR_MSG.CLASS_DONT_HAVE_DECORATOR);
+      if (e instanceof Error) {
+        expect(e.message).toEqual(ERROR_MSG.CLASS_DONT_HAVE_DECORATOR);
+      } else {
+        fail();
+      }      
     }
   });
   test("Without tracer", () => {
@@ -430,7 +442,11 @@ describe("Decorators in Class and Methods of Typescript", () => {
       myClass.my_func("test");
       fail();
     } catch (e) {
-      expect(e.message).toEqual(ERROR_MSG.TRACER_NOT_INITIALIZE);
+      if (e instanceof Error) {
+        expect(e.message).toEqual(ERROR_MSG.TRACER_NOT_INITIALIZE);
+      } else {
+        fail();
+      }      
     }
   });
 });

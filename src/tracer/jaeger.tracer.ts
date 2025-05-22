@@ -18,14 +18,14 @@ const defaultOptions = (serviceName: string, version: string, prometheus?: any, 
   const options = {
     tags: {},
     logger,
-    metrics: {},
+    metrics: {}
   };
 
   if (prometheus) {
     const promFactory = jaegerClient.PrometheusMetricsFactory;
     options.metrics = new promFactory(prometheus, serviceName);
   } else {
-    delete options.metrics;
+    options.metrics = {};
   }
 
   if (version.trim().length > 0) {
