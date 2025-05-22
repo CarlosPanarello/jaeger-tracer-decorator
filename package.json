@@ -14,7 +14,7 @@
     "pack": "npm run build && npm pack && echo Pack finished!!!",
     "pretest": "npm run build && cp -R ./src/tests/js_classes/ ./dist/tests/js_classes/",
     "prepare": "tsc",
-    "test": "jest"
+    "test": "node --trace-deprecation ./node_modules/.bin/jest"
   },
   "files": [
     "src/",
