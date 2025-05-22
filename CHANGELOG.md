@@ -1,5 +1,17 @@
 # Changes by Version
 
+## 3.1.2 (2025-05-22)
+
+* Fix remove isUndefined from decorators_ts.ts
+
+## 3.1.1 (2022-11-22)
+
+* Fix Bump node version
+
+## 3.1.0 (2022-11-22)
+
+* Fix Bump versions, @types/node, typescript
+
 ## 3.0.3 (2022-09-25)
 
 * Fix throw error when Jaeger is disabled for testing purposes, [PR](https://github.com/CarlosPanarello/jaeger-tracer-decorator/pull/2).

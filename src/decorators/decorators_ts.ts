@@ -29,20 +29,20 @@ const FORMAT_HTTP_HEADERS = jaegerClient.opentracing.FORMAT_HTTP_HEADERS;
  * }
  */
 export function traceable() {
-  return (...args: any[]) => {
-    args = args.filter((i) => !isUndefined(i));
-    switch (args.length) {
-      case 1:
-        return TraceableClassDecorator(args[0]);
-      case 3:
-        if (typeof args[2] === "number") {
-          throw new Error(ERROR_MSG.INVALID_LOCAL_TRACEABLE_DECORATOR);
+  return (...args) => {
+        args = args.filter((i) => i !== undefined);
+        switch (args.length) {
+            case 1:
+                return TraceableClassDecorator(args[0]);
+            case 3:
+                if (typeof args[2] === "number") {
+                    throw new Error(ERROR_MSG.INVALID_LOCAL_TRACEABLE_DECORATOR);
+                }
+                return TraceableMethodDecorator(args[0], args[1], args[2]);
+            default:
+                throw new Error(ERROR_MSG.INVALID_LOCAL_TRACEABLE_DECORATOR);
         }
-        return TraceableMethodDecorator(args[0], args[1], args[2]);
-      default:
-        throw new Error(ERROR_MSG.INVALID_LOCAL_TRACEABLE_DECORATOR);
-    }
-  };
+    };
 }
 
 export function TraceableClassDecorator<T extends new(...args: any[]) => object>(target: T): T {
