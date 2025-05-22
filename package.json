@@ -63,7 +63,7 @@
     "@types/restify": "^7.2.6",
     "@types/supertest": "2.0.5",
     "jest": "23.5.0",
-    "jest-cli": "^23.5.0",
+    "jest-cli": "^29.3.0",
     "nodemon": "^1.18.6",
     "opentracing": "^0.14.3",
     "restify": "^8.5.1",
