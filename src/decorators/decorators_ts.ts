@@ -29,8 +29,8 @@ const FORMAT_HTTP_HEADERS = jaegerClient.opentracing.FORMAT_HTTP_HEADERS;
  * }
  */
 export function traceable() {
-  return (...args) => {
-        args = args.filter((i) => i !== undefined);
+  return (...args: any[]) => {
+        args = args.filter((i): i is Exclude<typeof i, undefined> => i !== undefined);
         switch (args.length) {
             case 1:
                 return TraceableClassDecorator(args[0]);
