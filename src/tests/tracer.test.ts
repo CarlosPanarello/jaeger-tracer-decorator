@@ -418,7 +418,7 @@ describe("Decorators in Class and Methods of Typescript", () => {
         expect(e.message).toEqual(ERROR_MSG.CLASS_DONT_HAVE_DECORATOR);
       } else {
         fail();
-      }      
+      }
     }
   });
   test("Without tracer", () => {
@@ -446,7 +446,7 @@ describe("Decorators in Class and Methods of Typescript", () => {
         expect(e.message).toEqual(ERROR_MSG.TRACER_NOT_INITIALIZE);
       } else {
         fail();
-      }      
+      }
     }
   });
 });

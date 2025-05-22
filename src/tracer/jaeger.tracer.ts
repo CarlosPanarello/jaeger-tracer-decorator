@@ -18,7 +18,7 @@ const defaultOptions = (serviceName: string, version: string, prometheus?: any, 
   const options = {
     tags: {},
     logger,
-    metrics: {}
+    metrics: {},
   };
 
   if (prometheus) {

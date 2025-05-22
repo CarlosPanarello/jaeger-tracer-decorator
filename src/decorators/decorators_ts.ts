@@ -107,7 +107,7 @@ export function TraceableMethodDecorator(target: object, propertyKey: string, de
     const data: IMetadataTracer = Reflect.getMetadata(METADATA_KEY.CLASS_TRACER, this);
     const tracer = Reflect.getMetadata(METADATA_KEY.GLOBAL_TRACER, JaegerTracer);
     if (!tracer) {
-      if (/test[s]?/.test(process.env.NODE_ENV?.toLowerCase() ?? '')) {
+      if (/test[s]?/.test(process.env.NODE_ENV?.toLowerCase() ?? "")) {
         try {
           return originalMethod.apply(this, args);
         } catch (e) {
